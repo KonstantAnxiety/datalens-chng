@@ -3,9 +3,9 @@ name: Update release
 on:
   pull_request:
     branches:
-      - 'release/*'
-    paths:
-      - '*/CHANGELOG.md'
+      - 'release/**'
+#    paths:
+#      - '*/CHANGELOG.md'
 
 permissions:
   contents: write
