@@ -93,7 +93,7 @@ jobs:
             --new-repo-versions "${{ steps.render_versions_input.outputs.versions_input }}" \
             --make-outputs \
             --create-release
-          cat outputs.txt >> "$GITHUB_OUTPUT"
+          cat outputs.txt | tee -a "$GITHUB_OUTPUT"
         # ${{ github.event.inputs.dl_back_version }}"
 
       - name: Create branch
@@ -110,7 +110,8 @@ jobs:
           git push origin ${{ steps.create_branch.outputs.branch }} 
 
       - name: Create PR
-#        env:
+        env:
+          GH_TOKEN: ${{ github.token }}
           # robot secret so that PRs have activated actions
 #          GH_TOKEN: ${{ secrets.UPDATE_MAINREPO_VERSION_TOKEN }}
         run: |
