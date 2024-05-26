@@ -9,7 +9,6 @@
 ### Other
 - Add user-info type to markup component. [datalens-tech/datalens-ui#642](https://github.com/datalens-tech/datalens-ui/pull/642)
 - Add autoheight support in markup. [datalens-tech/datalens-ui#656](https://github.com/datalens-tech/datalens-ui/pull/656)
-- Remove unneccessary tests. [datalens-tech/datalens-ui#659](https://github.com/datalens-tech/datalens-ui/pull/659)
 - Fix axis mode for combined chart. [datalens-tech/datalens-ui#660](https://github.com/datalens-tech/datalens-ui/pull/660)
 - Add support basic tab for new connection based control. [datalens-tech/datalens-ui#658](https://github.com/datalens-tech/datalens-ui/pull/658)
 - Remove unused routes for connection & datasets. [datalens-tech/datalens-ui#661](https://github.com/datalens-tech/datalens-ui/pull/661)
