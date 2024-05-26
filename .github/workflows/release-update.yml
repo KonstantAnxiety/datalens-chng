@@ -5,9 +5,9 @@ on:
     types:
       - edited
     branches:
-      - 'release/**'
+      - 'release/*'
     paths:
-      - 'CHANGELOG.md'
+      - '*/CHANGELOG.md'
 
 permissions:
   contents: write
