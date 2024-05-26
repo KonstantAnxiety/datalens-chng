@@ -5,6 +5,7 @@ import datetime
 import functools
 import logging
 import os
+import re
 import subprocess
 import time
 import urllib
@@ -55,7 +56,20 @@ class ChangelogFormatter:
         return f"- {text}"
 
     @staticmethod
+    def clean_pr_title(title: str) -> str:
+        prefix_patterns_to_remove = [
+            r"^\[?(DLPROJECTS|CHARTS|BI|YCDOCS)-\d+\]?[ .:]*",
+        ]
+
+        for pattern in prefix_patterns_to_remove:
+            title = re.sub(pattern, "", title)
+        title = title.strip(" .")
+
+        return title
+
+    @staticmethod
     def pr(tags: list[str], title: str, number: int, repo_url: str) -> str:
+        title = ChangelogFormatter.clean_pr_title(title)
         tags_str = ", ".join((f"**{tag}**" for tag in tags))
         pr_message = "{title}. [{repo_name}#{number}]({repo_url}/pull/{number})".format(
             repo_name="/".join(repo_url.split("/")[-2:]),
@@ -145,10 +159,6 @@ def gather_changelog(cfg: dict[str, Any], repos_dir: Path, gh_headers: dict[str,
     for repository in cfg["repositories"]:
         repo_full_name = "/".join(repository["url"].split("/")[-2:])
         tag_from, tag_to = REPO_VERSIONS[repository["name"]]["from"], REPO_VERSIONS[repository["name"]]["to"]
-        if repository["tag"] != "backend":  # TODO remove debug
-            continue
-
-        _debug_pr_cnt = 2  # TODO NOW remove me
 
         git_log = subprocess.run(
             ["git", "log", f"{tag_from}..{tag_to}", "--format=%H\t%s"],
@@ -190,10 +200,14 @@ def gather_changelog(cfg: dict[str, Any], repos_dir: Path, gh_headers: dict[str,
             ]
 
             for pr in prs_info:
-                if pr['number'] == 338:  # TODO remove debug
+                if pr['number'] == 345:  # TODO remove debug
                     pr["labels"] = ["component/connectors", "component/datasets", "type/new-feature"]
-                if pr['number'] == 342:
+                if pr['number'] == 344:
                     pr["labels"] = ["type/CI"]
+                if pr['number'] in (365, 367):
+                    pr["labels"] = ["type/breaking-change"]
+                if pr['number'] == 372:
+                    pr["labels"] = ["component/connectors"]
 
                 pr_components = []
                 for component in changelog_config["component_tags"]["tags"]:
@@ -216,11 +230,11 @@ def gather_changelog(cfg: dict[str, Any], repos_dir: Path, gh_headers: dict[str,
                     CF.pr(pr_components, pr["title"], pr["number"], repository["url"]),
                 ))
 
-                _debug_pr_cnt -= 1  # TODO remove debug
-                if _debug_pr_cnt <= 0:
-                    break
-            if _debug_pr_cnt <= 0:  # TODO remove debug
-                break
+                # _debug_pr_cnt -= 1  # TODO remove debug
+                # if _debug_pr_cnt <= 0:
+                #     break
+            # if _debug_pr_cnt <= 0:  # TODO remove debug
+            #     break
 
     return changelog
 
@@ -241,7 +255,7 @@ def fill_helper_maps(
             new_tag = current_image_versions[img["version_descriptor"]]
             if existing_tag:
                 new_tag = min(new_tag, existing_tag)
-                LOGGER.info(f"Got multiple different image tags for {img['name']}, picking the older one ({new_tag})")
+                LOGGER.info(f"Got multiple different image tags for {img['name']}, picking the older one for the starting version ({new_tag})")
             REPO_VERSIONS[repo["name"]]["from"] = new_tag
 
     for repo_name, new_version in new_repo_versions.items():
