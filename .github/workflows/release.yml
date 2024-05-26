@@ -53,15 +53,15 @@ jobs:
 
           result=""
 
-          if [[ -z "${dl_back_version}" ]]; then
+          if [[ -n "${dl_back_version}" ]]; then
             result="datalens-backend:${dl_back_version}"
           fi
 
-          if [[ -z "${dl_ui_version}" ]]; then
+          if [[ -n "${dl_ui_version}" ]]; then
             result="$result datalens-ui:${dl_ui_version}"
           fi
 
-          if [[ -z "${dl_us_version}" ]]; then
+          if [[ -n "${dl_us_version}" ]]; then
             result="$result datalens-us:${dl_us_version}"
           fi
 
