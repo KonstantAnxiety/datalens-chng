@@ -355,7 +355,7 @@ if __name__ == "__main__":
 
     # Write new version to file
     if args.make_outputs:
-        write_output(f"release_version={new_release}\n")
+        write_output(f"release_version={new_release.lstrip('v')}\n")
 
     # Update changelog & create release
     prepend_file(args.changelog_path, changelog_result)

@@ -23,6 +23,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   run:
@@ -107,7 +108,7 @@ jobs:
       - name: Commit and push branch
         run: |
           git add CHANGELOG.md versions-config.json
-          git commit --message "DataLens release ${{ steps.gather_changelog.outputs.release_version }}"
+          git commit --message "DataLens release v${{ steps.gather_changelog.outputs.release_version }}"
           git push origin ${{ steps.create_branch.outputs.branch }} 
 
       - name: Create PR
