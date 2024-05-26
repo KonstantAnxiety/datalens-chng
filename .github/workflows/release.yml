@@ -116,8 +116,6 @@ jobs:
       - name: Create PR
         env:
           GH_TOKEN: ${{ github.token }}
-          # robot secret so that PRs have activated actions
-#          GH_TOKEN: ${{ secrets.UPDATE_MAINREPO_VERSION_TOKEN }}
         run: |
           pr_body="
             This PR is created by a GitHub action.
