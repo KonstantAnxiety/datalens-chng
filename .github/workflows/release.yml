@@ -65,7 +65,7 @@ jobs:
             result="$result datalens-us:${dl_us_version}"
           fi
 
-          echo "versions_input=${result}" >> $GITHUB_OUTPUT
+          echo "versions_input=${result}" | tee -a $GITHUB_OUTPUT
 
       - name: Setup user
         run: |
@@ -87,7 +87,7 @@ jobs:
             --config-path="./changelog_config.json" \
             --repos-dir="./repos" \
             --release-type="${{ github.event.inputs.release_type }}" \
-            --changelog-path="../../../../CHANGELOG.md"
+            --changelog-path="../../../../CHANGELOG.md" \
             --version-config-path "../../../../versions-config.json" \
             --root-repo-name=${{ github.repository_owner }}/${{ github.event.repository.name }} \
             --new-repo-versions "{{ steps.render_versions_input.outputs.versions_input }}" \
