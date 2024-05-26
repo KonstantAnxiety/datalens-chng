@@ -2,17 +2,18 @@ name: Update release
 
 on:
   pull_request:
-#    branches:
-#      - 'release/**'
-#    paths:
-#      - '*/CHANGELOG.md'
+    branches:
+      - 'main'
+    paths:
+      - 'CHANGELOG.md'
 
 permissions:
   contents: write
 
 jobs:
-  run:
-    name: "Create release"
+  run_if:
+    if: startsWith(github.head_ref, 'release/')
+    name: "Update release"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,14 +25,14 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
       - name: Install python dependencies
-        working-directory: .github/scripts/changelog
+        working-directory: .github/workflows/scripts/changelog
         run: pip install -r requirements.txt
 
       - name: Update release from changelog
-        working-directory: .github/scripts/changelog
+        working-directory: .github/workflows/scripts/changelog
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
