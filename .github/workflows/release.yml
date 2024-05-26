@@ -44,14 +44,28 @@ jobs:
         working-directory: .github/workflows/scripts/changelog
         run: pip install -r requirements.txt
 
-      - name: Create branch
-        id: create_branch
+      - name: Render versions input
+        id: render_versions_input
         run: |
-          branch="release/${{ steps.gather_changelog.outputs.release_version }}"
-          git checkout -B $branch origin/main
-          git push --set-upstream origin $branch
+          dl_back_version=${{ github.event.inputs.dl_back_version }}
+          dl_ui_version=${{ github.event.inputs.dl_ui_version }}
+          dl_us_version=${{ github.event.inputs.dl_us_version }}
 
-          echo "branch=${branch}" >> $GITHUB_OUTPUT
+          result=""
+
+          if [[ -z "${dl_back_version}" ]]; then
+            result="datalens-backend:${dl_back_version}"
+          fi
+
+          if [[ -z "${dl_ui_version}" ]]; then
+            result="$result datalens-ui:${dl_ui_version}"
+          fi
+
+          if [[ -z "${dl_us_version}" ]]; then
+            result="$result datalens-us:${dl_us_version}"
+          fi
+
+          echo "versions_input=${result}" >> $GITHUB_OUTPUT
 
       - name: Setup user
         run: |
@@ -62,29 +76,6 @@ jobs:
         working-directory: .github/workflows/scripts/changelog
         run: |
           CONFIG_FILE="./changelog_config.json" bash clone_repos.sh
-
-      - name: Render versions input
-        id: render_versions_input
-        run: |
-          dl_back_version=${{ github.event.inputs.dl_back_version }}
-          dl_ui_version=${{ github.event.inputs.dl_ui_version }}
-          dl_us_version=${{ github.event.inputs.dl_us_version }}
-          
-          result=""
-          
-          if [[ -z "${dl_back_version}" ]]; then
-            result="datalens-backend:${dl_back_version}"
-          fi
-          
-          if [[ -z "${dl_ui_version}" ]]; then
-            result="$result datalens-ui:${dl_ui_version}"
-          fi
-          
-          if [[ -z "${dl_us_version}" ]]; then
-            result="$result datalens-us:${dl_us_version}"
-          fi
-          
-          echo "versions_input=${result}" >> $GITHUB_OUTPUT
 
       - name: Run changelog gatherer
         id: gather_changelog
@@ -104,6 +95,15 @@ jobs:
             --create-release
           cat outputs.txt >> "$GITHUB_OUTPUT"
         # ${{ github.event.inputs.dl_back_version }}"
+
+      - name: Create branch
+        id: create_branch
+        run: |
+          branch="release/${{ steps.gather_changelog.outputs.release_version }}"
+          git checkout -B $branch origin/main
+          git push --set-upstream origin $branch
+
+          echo "branch=${branch}" >> $GITHUB_OUTPUT
 
       - name: Push changes
         run: |
