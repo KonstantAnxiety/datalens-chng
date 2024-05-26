@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: asdf
-        run: echo "${{ github.event.pull_request.head.ref }}${{ github.event.inputs.pr_head }}"
+        run: echo "${{ github.event.pull_request.head.ref }}${{ inputs.pr_head }}"
       - name: checkout
         uses: actions/checkout@v4
         with:
-          ref: "${{ github.event.pull_request.head.ref }}${{ github.event.inputs.pr_head }}"
+          ref: "${{ github.event.pull_request.head.ref }}${{ inputs.pr_head }}"
       - name: setup python
         uses: actions/setup-python@v5
         with:
