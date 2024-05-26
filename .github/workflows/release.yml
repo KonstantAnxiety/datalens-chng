@@ -138,4 +138,4 @@ jobs:
       - name: Update compose
         uses: ${{ github.repository_owner }}/${{ github.event.repository.name }}/.github/workflows/update-compose.yml@main
         with:
-          config-path: .github/labeler.yml
+          pr_head: ${{ steps.create_branch.outputs.branch }}
