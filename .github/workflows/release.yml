@@ -122,7 +122,7 @@ jobs:
             
             Navigate to the [release page](${{ steps.gather_changelog.outputs.release_url }}) to validate its description.
             
-            Do not edit it manually, instead edit the `CHANGELOG.md` file in this PR and the release will be updated automatically.
+            Do not edit it manually, instead edit the \`CHANGELOG.md\` file in this PR and the release will be updated automatically.
             
             When you are ready to confirm this release, merge this PR and publish the release."
           
