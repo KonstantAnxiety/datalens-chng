@@ -41,7 +41,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install python dependencies
-        working-directory: .github/scripts/changelog
+        working-directory: .github/workflows/scripts/changelog
         run: pip install -r requirements.txt
 
       - name: Create branch
@@ -59,7 +59,7 @@ jobs:
           git config user.email github-actions@github.com
 
       - name: Clone repos
-        working-directory: .github/scripts/changelog
+        working-directory: .github/workflows/scripts/changelog
         run: |
           CONFIG_FILE="./changelog_config.json" bash clone_repos.sh
 
@@ -88,7 +88,7 @@ jobs:
 
       - name: Run changelog gatherer
         id: gather_changelog
-        working-directory: .github/scripts/changelog
+        working-directory: .github/workflows/scripts/changelog
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
