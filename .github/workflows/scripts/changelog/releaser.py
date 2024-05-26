@@ -307,6 +307,7 @@ if __name__ == "__main__":
         current_image_versions: dict[str, str] = json.load(f)
 
     new_repo_versions: dict[str, str] = {}
+    print(args.new_repo_versions)
     for item in args.new_repo_versions.strip().split(" "):
         repo_name, new_version = item.split(":")
         new_repo_versions[repo_name] = new_version.lstrip("v")
