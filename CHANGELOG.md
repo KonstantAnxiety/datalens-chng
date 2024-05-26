@@ -5,7 +5,7 @@
 - datalens-data-api: 0.2063.0-rc.1 -> 0.2066.0-rc.1 ([full changelog](https://github.com/datalens-tech/datalens-backend/compare/v0.2063.0-rc.1...v0.2066.0-rc.1))
 - datalens-ui: 0.1316.0 -> 0.1330.0 ([full changelog](https://github.com/datalens-tech/datalens-ui/compare/v0.1316.0...v0.1330.0))
 - datalens-us: 0.159.0
-- Test updated x2
+- Test updated x3
 
 ### Breaking changes
 - Fix bigquery dependencies (add a required pyarrow extra). [datalens-tech/datalens-backend#365](https://github.com/datalens-tech/datalens-backend/pull/365)
