@@ -94,7 +94,6 @@ jobs:
             --make-outputs \
             --create-release
           cat outputs.txt | tee -a "$GITHUB_OUTPUT"
-        # ${{ github.event.inputs.dl_back_version }}"
 
       - name: Create branch
         id: create_branch
@@ -105,8 +104,10 @@ jobs:
 
           echo "branch=${branch}" >> $GITHUB_OUTPUT
 
-      - name: Push changes
+      - name: Commit and push branch
         run: |
+          git add CHANGELOG.md versions-config.json
+          git commit --message "DataLens release ${{ steps.gather_changelog.outputs.release_version }}"
           git push origin ${{ steps.create_branch.outputs.branch }} 
 
       - name: Create PR
