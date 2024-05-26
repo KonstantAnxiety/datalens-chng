@@ -385,7 +385,7 @@ if __name__ == "__main__":
         )
         release_resp.raise_for_status()
         resp_body = release_resp.json()
-        release_url = resp_body.get('url')
+        release_url = resp_body.get('html_url')
         LOGGER.info(f"Release response body: {resp_body}")
         LOGGER.info(f"Successfully created release: {release_url}")
         if args.make_outputs:
