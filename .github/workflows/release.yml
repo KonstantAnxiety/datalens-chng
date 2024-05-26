@@ -134,3 +134,8 @@ jobs:
             --draft)
           
           echo "::notice title=Created PR::$pr_link"
+
+      - name: Update compose
+        uses: ${{ github.repository_owner }}/${{ github.event.repository.name }}/.github/workflows/update-compose.yml@main
+        with:
+          config-path: .github/labeler.yml
