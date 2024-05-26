@@ -2,8 +2,8 @@ name: Update release
 
 on:
   pull_request:
-    branches:
-      - 'release/**'
+#    branches:
+#      - 'release/**'
 #    paths:
 #      - '*/CHANGELOG.md'
 
