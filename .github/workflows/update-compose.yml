@@ -1,5 +1,10 @@
 on:
   pull_request:
+  workflow_run:
+    workflows:
+      - Create release
+    types:
+      - completed
 
 name: Update docker-compose.yml docker-compose-dev.yml
 permissions:
