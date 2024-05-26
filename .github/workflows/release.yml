@@ -129,7 +129,7 @@ jobs:
             When you are ready to confirm this release, merge this PR and publish the release."
           
           pr_link=$(gh pr create \
-            --title "Release DataLens ${{ steps.gather_changelog.outputs.release_version }}" \
+            --title "Release DataLens v${{ steps.gather_changelog.outputs.release_version }}" \
             --body "$pr_body" \
             --base main \
             --head ${{ steps.create_branch.outputs.branch }} \
