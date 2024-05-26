@@ -90,7 +90,7 @@ jobs:
             --changelog-path="../../../../CHANGELOG.md" \
             --version-config-path "../../../../versions-config.json" \
             --root-repo-name=${{ github.repository_owner }}/${{ github.event.repository.name }} \
-            --new-repo-versions "{{ steps.render_versions_input.outputs.versions_input }}" \
+            --new-repo-versions "${{ steps.render_versions_input.outputs.versions_input }}" \
             --make-outputs \
             --create-release
           cat outputs.txt >> "$GITHUB_OUTPUT"
