@@ -13,7 +13,7 @@ permissions:
 jobs:
   run_if:
     if: startsWith(github.head_ref, 'release/')
-    name: "Update release"
+    name: "Sync changelog"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

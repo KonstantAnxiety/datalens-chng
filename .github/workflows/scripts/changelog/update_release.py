@@ -12,17 +12,15 @@ def find_release_by_tag(repo_full_name: str, headers: dict[str, str], release_ta
     release_resp = request_with_retries(
         functools.partial(
             requests.get,
-            url=f"https://api.github.com/repos/{repo_full_name}/releases/tags/{release_tag}",
+            url=f"https://api.github.com/repos/{repo_full_name}/releases",
             headers=headers,
         )
     )
-    try:
-        release_resp.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 404:
-            raise RuntimeError(f'Could not find a release by tag "{release_tag}"') from e
-    latest_release_id = release_resp.json()["id"]
-    return latest_release_id
+    release_resp.raise_for_status()
+    release = next((release for release in release_resp.json() if release["tag_name"] == release_tag), None)
+    if release is None:
+        raise RuntimeError(f'Could not find a release by tag "{release_tag}"') from e
+    return release["id"]
 
 
 def update_release_body(repo_full_name: str, headers: dict[str, str], release_id: str, new_body: str) -> None:
