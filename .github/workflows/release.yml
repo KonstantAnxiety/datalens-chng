@@ -110,7 +110,7 @@ jobs:
           git push origin ${{ steps.create_branch.outputs.branch }} 
 
       - name: Create PR
-        env:
+#        env:
           # robot secret so that PRs have activated actions
 #          GH_TOKEN: ${{ secrets.UPDATE_MAINREPO_VERSION_TOKEN }}
         run: |
