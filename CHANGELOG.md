@@ -7,7 +7,6 @@
 - datalens-us: 0.190.0 -> 0.195.0 ([full changelog](https://github.com/datalens-tech/datalens-us/compare/v0.190.0...v0.195.0))
 
 ### Changes
-- Add markup support in ql charts. [datalens-tech/datalens-ui#633](https://github.com/datalens-tech/datalens-ui/pull/633)
 - Disable old relations tests by flag. [datalens-tech/datalens-ui#672](https://github.com/datalens-tech/datalens-ui/pull/672)
 - Remove stub for workbook isolation interruption. [datalens-tech/datalens-ui#670](https://github.com/datalens-tech/datalens-ui/pull/670)
 - Fix E2E report on test failure. [datalens-tech/datalens-ui#674](https://github.com/datalens-tech/datalens-ui/pull/674)
